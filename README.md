@@ -30,17 +30,13 @@ cd hangman
 python hangman.py
 ```
 
-### How to play
+### Rules
 
-You will be asked to guess a single letter. Any letter A-Z or a-z will be accepted.
-
-"Enter a single letter:"
-
-- If the guessed letter matches a letter in the word ...
-
-- If the guessed letter does no match a letter in the word ...
-
-- You have x guesses
+- Guess one letter at a time.
+- Any letter A-Z or a-z is valid.
+- A correctly guessed letter will be displayed in the console.
+- If you correctly guess all the letters in the word you win!
+- You have 5 lives, after 5 incorrect guesses you lose.
 
 ### Description of files
 
@@ -52,7 +48,9 @@ Non-Python files:
 
 Python modules:
 
-| filename       | description                                                                  |
-| -------------- | ---------------------------------------------------------------------------- |
-| milestone_2.py | Create variables for the game                                                |
-| milestone_3.py | Functions to ask for input and check if the guessed character is in the word |
+| filename            | description                                                                  |
+| ------------------- | ---------------------------------------------------------------------------- |
+| milestone_2.py      | Create variables for the game                                                |
+| milestone_3.py      | Functions to ask for input and check if the guessed character is in the word |
+| milestone_4.py      | A Hangman game class. Has methods to ask for input and check a guess         |
+| test_milestone_4.py | Unit tests for Hangman class initialization and methods                      |
