@@ -25,12 +25,14 @@ class Hangman:
         Args:
             guess (str): the guessed letter.
         """
+        # Change to lowercase for check to see if in word, as word is converted to lowercase
         guess_lower = guess.lower()
 
         if guess_lower in self.word:
             print(f"Good guess! {guess} is in the word.")
             for index, letter in enumerate(self.word):
-                if letter.lower() == guess_lower:
+                if letter == guess_lower:
+                    # guess is added to word_guessed and displayed to the user in the case entered
                     self.word_guessed[index] = guess
             self.num_letters -= 1
         else:
@@ -49,13 +51,14 @@ class Hangman:
 
             if not self._valid_guess(guess):
                 print("Invalid letter. Please, enter a single alphabetical character.")
-            elif guess in self.list_of_guesses:
+            elif guess.lower() in self.list_of_guesses:
                 print("You already tried that letter!")
             else:
                 self.check_guess(guess)
-                self.list_of_guesses.append(guess)
+                self.list_of_guesses.append(guess.lower())
 
 
 if __name__ == "__main__":
-    x = Hangman(word_list=["apPle", "pEar", "Cherry", "Blackcurrant", "mangO"])
+    # x = Hangman(word_list=["apPle", "pEar", "Cherry", "Blackcurrant", "mangO"])
+    x = Hangman(word_list=["APPLE"])
     x.ask_for_input()
