@@ -80,3 +80,7 @@ Python modules:
 cd <path_to_hangman>
 pytest --verbose
 ```
+
+### License
+
+Licensed under the [GPL-3.0](https://github.com/lmash/hangman/blob/main/LICENSE) license.
