@@ -10,25 +10,25 @@ Conda/miniconda installed
 
 ### Installation
 
-Clone the repo
+1. Clone the repo
 ```sh
 git clone https://github.com/lmash/hangman.git
 ```
 
-Create the conda env and install required packages
-```shell
-conda env create -f <path_to_hangman>/environment.yml
-```
-
-### Usage
-
-1. Change to the hangman folder
+2. Change to the hangman folder
 
 ```sh
 cd hangman
 ```
 
-2. Run the following from the command line
+3. Create the conda env and install required packages
+```shell
+conda env create -f environment.yml
+```
+
+### Usage
+
+Run the following from the command line
 
 ```sh
 python milestone_5.py
@@ -46,9 +46,10 @@ python milestone_5.py
 
 Non-Python files:
 
-| filename  | description                                             |
-| --------- | ------------------------------------------------------- |
-| README.md | Text file (markdown format) description of the project. |
+| filename         | description                                             |
+|------------------|---------------------------------------------------------|
+| README.md        | Text file (markdown format) description of the project. |
+| environment.yaml | Text file (yaml format) Conda environment file          |
 
 Python modules:
 
