@@ -54,3 +54,14 @@ Python modules:
 | milestone_3.py      | Functions to ask for input and check if the guessed character is in the word |
 | milestone_4.py      | A Hangman game class. Has methods to ask for input and check a guess         |
 | test_milestone_4.py | Unit tests for Hangman class initialization and methods                      |
+
+### Running tests
+Install pytest
+```sh
+pip install pytest
+```
+
+Run tests
+```sh
+pytest
+```
