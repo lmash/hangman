@@ -1,6 +1,7 @@
 import pytest
 from typing import List
 
+import milestone_5
 from milestone_5 import Hangman
 
 
@@ -98,7 +99,7 @@ def get_console_output(capsys) -> List:
 
 
 def test_more_than_one_letter_entered(monkeypatch, capsys, default_game):
-    """Method ask_for_input requests additional input when more than one letter entered"""
+    """Method ask_for_input prints failure message and requests additional input when more than one letter input"""
     inputs = iter(['ab', 'b'])  # define multiple inputs to be monkeypatched
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
     default_game.ask_for_input()
@@ -107,9 +108,50 @@ def test_more_than_one_letter_entered(monkeypatch, capsys, default_game):
 
 
 def test_invalid_letter_entered(monkeypatch, capsys, default_game):
-    """Method ask_for_input requests additional input when an invalid letter is entered"""
+    """Method ask_for_input prints failure message and requests additional input when an invalid letter is input"""
     inputs = iter(['7', 'b'])
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
     default_game.ask_for_input()
     outputs = get_console_output(capsys)
     assert outputs[0] == 'Invalid letter. Please, enter a single alphabetical character.'
+
+
+def test_valid_letter_entered(monkeypatch, capsys, default_game):
+    """Method ask_for_input prints success message when valid letter input"""
+    monkeypatch.setattr('builtins.input', lambda _: 'a')
+    default_game.ask_for_input()
+    outputs = get_console_output(capsys)
+    assert outputs[0] == 'Good guess! a is in the word.'
+    assert default_game.list_of_guesses == ['a']
+
+
+def test_duplicate_valid_letter_entered(monkeypatch, capsys, default_game):
+    """Method ask_for_input prints message and requests additional input when a previously entered letter is input"""
+    monkeypatch.setattr('builtins.input', lambda _: 'a')
+    default_game.ask_for_input()
+    get_console_output(capsys)
+    # Enter 'a' again followed by 'b' (Need 2 entries as valid entry needed to break out of input loop)
+    inputs = iter(['a', 'q'])
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    default_game.ask_for_input()
+    outputs = get_console_output(capsys)
+    assert outputs[0] == 'You already tried that letter!'
+
+
+def test_message_when_game_won(monkeypatch, capsys):
+    """Method play_game prints message when the game has been won"""
+    inputs = iter(['y', 'r', 'e', 'C', 'h'])
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    milestone_5.play_game(['Cherry'])
+    outputs = get_console_output(capsys)
+    assert outputs[len(outputs) - 3] == 'Congratulations. You won the game!'
+    assert outputs[len(outputs) - 2] == 'Word is: Cherry'
+
+
+def test_message_when_game_lost(monkeypatch, capsys):
+    """Method play_game prints message when the game has been lost"""
+    inputs = iter(['z', 'w', 'o', 'a', 'm'])
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    milestone_5.play_game(['Cherry'])
+    outputs = get_console_output(capsys)
+    assert outputs[len(outputs) - 2] == 'You lost!'

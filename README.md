@@ -31,14 +31,14 @@ cd hangman
 2. Run the following from the command line
 
 ```sh
-python hangman.py
+python milestone_5.py
 ```
 
 ### Rules
 
 - Guess one letter at a time.
 - Any letter A-Z or a-z is valid.
-- A correctly guessed letter will be displayed in the console.
+- A correctly guessed letter will be displayed in the console with the word 
 - If you correctly guess all the letters in the word you win!
 - You have 5 lives, after 5 incorrect guesses you lose.
 
