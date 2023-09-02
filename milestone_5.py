@@ -1,3 +1,4 @@
+import os
 import random
 from typing import List
 
@@ -82,6 +83,39 @@ class Hangman:
         return "".join(self.word_guessed)
 
 
+def enter_lives() -> int:
+    """
+    This function asks the user to enter the number of lives. It defaults
+    lives to 5 if a non integer value is entered
+
+    Returns:
+        int: number of lives entered by user, defaults to 5 if invalid entry
+        or entry less than one
+    """
+    user_input = input("Enter number of lives: ")
+    try:
+        num_lives = int(user_input)
+        if num_lives > 0:
+            return num_lives
+    except ValueError:
+        pass  # lives entered not an integer
+
+    print("Invalid lives entered, you will start with 5 lives")
+    input("Press any key to continue ... ")
+    return 5
+
+
+def _clear_screen():
+    """
+    This function clears the console to ensure the game is started
+    with an empty screen
+    """
+    if os.name == 'posix':
+        os.system('clear')  # linux / os x
+    else:
+        os.system('cls')  # windows
+
+
 def play_game(word_list: List):
     """
     This functions runs the game. It checks to see whether the user needs to
@@ -90,7 +124,9 @@ def play_game(word_list: List):
     Args:
         word_list (list): A list of words for the hangman game
     """
-    game = Hangman(word_list=word_list, num_lives=5)
+    num_lives = enter_lives()
+    _clear_screen()
+    game = Hangman(word_list=word_list, num_lives=num_lives)
 
     while True:
         if game.won():

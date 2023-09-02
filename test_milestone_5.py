@@ -139,8 +139,11 @@ def test_duplicate_valid_letter_entered(monkeypatch, capsys, default_game):
 
 
 def test_message_when_game_won(monkeypatch, capsys):
-    """Method play_game prints message when the game has been won"""
-    inputs = iter(['y', 'r', 'e', 'C', 'h'])
+    """
+    Method play_game prints message when the game has been won
+    User enters 5 for number of lives followed by letters in cherry
+    """
+    inputs = iter(['5', 'y', 'r', 'e', 'C', 'h'])
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
     milestone_5.play_game(['Cherry'])
     outputs = get_console_output(capsys)
@@ -149,9 +152,27 @@ def test_message_when_game_won(monkeypatch, capsys):
 
 
 def test_message_when_game_lost(monkeypatch, capsys):
-    """Method play_game prints message when the game has been lost"""
-    inputs = iter(['z', 'w', 'o', 'a', 'm'])
+    """
+    Method play_game prints message when the game has been lost
+    User enters 5 for number of lives followed by letters not in cherry
+    """
+    inputs = iter(['5', 'z', 'w', 'o', 'a', 'm'])
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
     milestone_5.play_game(['Cherry'])
     outputs = get_console_output(capsys)
     assert outputs[len(outputs) - 2] == 'You lost!'
+
+
+def test_valid_number_of_lives_entered(monkeypatch, capsys):
+    """Method enter_lives uses number of lives entered as entry is a valid integer > 0"""
+    monkeypatch.setattr('builtins.input', lambda _: '4')
+    number_lives = milestone_5.enter_lives()
+    assert number_lives == 4
+
+
+def test_invalid_number_of_lives_entered(monkeypatch, capsys):
+    """Method enter_lives uses number of lives entered as entry is a valid integer > 0"""
+    inputs = iter(['z', '_'])
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    number_lives = milestone_5.enter_lives()
+    assert number_lives == 5
